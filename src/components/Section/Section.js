@@ -8,15 +8,38 @@ export default class Section extends Component {
         this.props.addTaskHandler(this.props.sectionId)
     }
 
-    handleDragOver(){
-        console.log("Over")
+    // handleOnDrop(e){
+    //     // debugger
+    //     console.log("Dropped")
+    // }
+
+    // handleDragOver(e){
+    //     debugger
+    //     console.log("Over")
+    // }
+
+    dragOverHandler = (event) => {
+        event.preventDefault();
+    }
+
+    dropHandler = (event) => {
+        debugger
+        event.preventDefault();
+        let target = event.target;
+        let sectionId = target.getAttribute("sectionId");
+        let taskId = target.getAttribute("taskId");
+        console.log(taskId + "$|$" + sectionId);
+        
+        // let newCard = JSON.parse(event.dataTransfer.getData("text/plain"));
+        // this.props.droppedCard(newCard, this.props.card_column);
     }
 
     render() {
         return (
             <div 
             className="Section"
-            onDragOver={(e)=>this.handleDragOver(e)}>
+            onDrop={this.dropHandler}
+            onDragOver={this.dragOverHandler}>
                 <div className="Header">
                     {this.props.name}
                 </div>
@@ -25,7 +48,8 @@ export default class Section extends Component {
                     this.props.tasks.map((task, i)=>
                         <Task 
                         desc={task.desc}
-                        taskId={i}></Task>
+                        taskId={i}
+                        sectionId={this.props.sectionId}></Task>
                     )
                 }
                 <div 
