@@ -1,0 +1,12 @@
+.AddSectionButton{
+    background-color: #777;
+    padding: 10px;
+    height: 20px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.AddSectionButton:hover{
+    background-color: #000;
+}
