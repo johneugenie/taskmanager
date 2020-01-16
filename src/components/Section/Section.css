@@ -1,10 +1,13 @@
 .Section {
-    border: 1px solid #333;
+    /* border: 1px solid #333; */
     padding: 10px 0px;
     margin: 0px 10px;
     flex-grow: 1;
     border-radius: 7px;
-    background-color: #CCC;
+    /* background-color: #CCC; */
+    /* background-color: #ebecf0; */
+    background-color: #E6E6FA;
+    
 }
 
 .Header{
@@ -21,7 +24,8 @@
 }
 
 .AddTaskButton{
-    background-color: #777;
+    /* background-color: #777; */
+    background-color: #9370DB;
     padding: 10px;
     height: 20px;
     color: white;
@@ -30,5 +34,6 @@
 }
 
 .AddTaskButton:hover{
-    background-color: #000;
+    /* background-color: #000; */
+    background-color: #8A2BE2;
 }

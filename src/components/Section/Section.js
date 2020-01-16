@@ -7,16 +7,25 @@ export default class Section extends Component {
     addTasksInSection(){
         this.props.addTaskHandler(this.props.sectionId)
     }
+
+    handleDragOver(){
+        console.log("Over")
+    }
+
     render() {
         return (
-            <div className="Section">
+            <div 
+            className="Section"
+            onDragOver={(e)=>this.handleDragOver(e)}>
                 <div className="Header">
                     {this.props.name}
                 </div>
                 <div className="Tasks">
                 {
                     this.props.tasks.map((task, i)=>
-                        <Task desc={task.desc}></Task>
+                        <Task 
+                        desc={task.desc}
+                        taskId={i}></Task>
                     )
                 }
                 <div 

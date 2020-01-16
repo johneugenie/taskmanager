@@ -5,35 +5,16 @@ import { tsImportEqualsDeclaration } from '@babel/types';
 
 export default class Main extends Component {
     state = {
-        sections: [
-        //   {
-        //     name: "No Name",
-        //     tasks: [
-        //       {
-        //         desc: "DeMo"
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: "No Name",
-        //     tasks: [
-        //       {
-        //         desc: "DeMo"
-        //       }
-        //     ]
-        //   }
-        ]
+        sections: []
     }
+    
+    // Function to add a section to the board
     addSection(){
         let sections = this.state.sections;
         sections.push(
             {
-                name: "No Name",
-                tasks: [
-                    // {
-                    //     desc: "Setup Demo"
-                    // }
-                ]
+                name: "No name",
+                tasks: []
             }
         )
         this.setState({
@@ -41,19 +22,32 @@ export default class Main extends Component {
         })
     }
 
+    // Function to add a task to a section
     addTasks(id){
-        debugger
         let sections = this.state.sections;
-        // var currSection = sections[id];
         sections[id].tasks.push(
             {
-                desc: "Setup Demo"
+                desc: "No description"
             }
         )
         this.setState({
             sections
         })
     }
+
+    // Function to move tasks between sections
+    moveTask(){
+        // let sections = this.state.sections;
+        // sections[id].tasks.push(
+        //     {
+        //         desc: "No description"
+        //     }
+        // )
+        // this.setState({
+        //     sections
+        // })
+    }
+    
     render() {
         return (
             <>
