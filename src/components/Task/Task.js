@@ -11,21 +11,23 @@ export default class Task extends Component {
         const target = e.target;
         e.stopPropagation();
         this.dragged = e.currentTarget;
-        var taskId = e.currentTarget.getAttribute("taskId");
-        var sectionId = e.currentTarget.getAttribute("sectionId");
+        let taskId = e.currentTarget.getAttribute("taskId");
+        let sectionId = e.currentTarget.getAttribute("sectionId");
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text', sectionId + "$|$" + taskId);
 
-        setTimeout(
-            ()=> {
-                target.style.display = "none";
-            }, 
-            0
-        )
     }
 
     handleDragEnd(e){
         console.log("end");
+    }
+
+    handleBlur = (e) => {
+        console.log("Blurred");
+        let taskId = e.target.getAttribute("taskId");
+        let sectionId = e.target.getAttribute("sectionId");
+        let value = e.target.innerText;
+        this.props.updateTaskHandler(parseInt(taskId),parseInt(sectionId), value)
     }
 
     render() {
@@ -37,7 +39,14 @@ export default class Task extends Component {
             sectionId={this.props.sectionId}
             onDragStart={(e)=>this.handleDragStart(e)}
             onDragEnd={(e)=>this.handleDragEnd(e)}>
-              {this.props.desc}
+              <span
+              onBlur={this.handleBlur} 
+              taskId={this.props.taskId}
+              sectionId={this.props.sectionId}
+              suppressContentEditableWarning={true}
+              contentEditable={true}>
+                {this.props.desc}
+              </span>
             </div>
         )
     }

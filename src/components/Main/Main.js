@@ -40,10 +40,33 @@ export default class Main extends Component {
         let sections = this.state.sections;
         let taskMoved = sections[sectionFrom].tasks[taskFrom];
         sections[sectionTo].tasks.splice(taskTo, 0, taskMoved);
+
+        sections[sectionFrom].tasks.splice(taskFrom, 1);
         
         this.setState({
             sections
         })
+    }
+
+    // Update Task Description
+    updateTaskDesc(taskId, sectionId, value){
+        let sections = this.state.sections;
+        sections[sectionId].tasks[taskId].desc = value;
+        
+        this.setState({
+            sections
+        });
+    }
+
+    // Update Section Name
+    updateSectionName(sectionId, value){
+        debugger
+        let sections = this.state.sections;
+        sections[sectionId].name = value;
+        
+        this.setState({
+            sections
+        });
     }
     
     render() {
@@ -56,6 +79,8 @@ export default class Main extends Component {
                     name={section.name}
                     addTaskHandler={this.addTasks.bind(this)}
                     moveTaskHandler={this.moveTask.bind(this)}
+                    updateTaskHandler={this.updateTaskDesc.bind(this)}
+                    updateSectionHandler={this.updateSectionName.bind(this)}
                     sectionId={i}>
                     </Section>
                 )

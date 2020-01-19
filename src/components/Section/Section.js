@@ -8,6 +8,14 @@ export default class Section extends Component {
         this.props.addTaskHandler(this.props.sectionId)
     }
 
+    updateTaskDesc(taskId, sectionId, value){
+        this.props.updateTaskHandler(taskId, sectionId, value);
+    }
+
+    updateSectionName(sectionId, value){
+        this.props.updateSectionHandler(sectionId, value);
+    }
+
     dragOverHandler = (event) => {
         event.preventDefault();
     }
@@ -21,8 +29,10 @@ export default class Section extends Component {
         let splitArray = passedOnData.split("$|$");
         let fromTaskId = splitArray[1];
         let fromSectionId = splitArray[0];
-
-        if(toSectionId && toTaskId){
+        if(toSectionId && fromTaskId && fromTaskId){
+            if(!toTaskId){
+                toTaskId = "0";
+            }
             this.props.moveTaskHandler(
                 parseInt(fromSectionId),
                 parseInt(toSectionId),
@@ -30,26 +40,38 @@ export default class Section extends Component {
                 parseInt(toTaskId)
             )
         }
-        
-        // this.props.droppedCard(newCard, this.props.card_column);
+    }
+
+    handleBlur = (e) => {
+        let sectionId = e.target.getAttribute("sectionId");
+        let value = e.target.innerText;
+        this.updateSectionName(parseInt(sectionId), value);
     }
 
     render() {
         return (
             <div 
-            className="Section">
+            className="Section"
+            sectionId={this.props.sectionId}
+            onDrop={this.dropHandler}
+            onDragOver={this.dragOverHandler}>
                 <div className="Header">
-                    {this.props.name}
+                    <span 
+                    contenteditable="true"
+                    onBlur={this.handleBlur} 
+                    suppressContentEditableWarning={true}
+                    sectionId={this.props.sectionId}>
+                        {this.props.name}
+                    </span>
                 </div>
-                <div className="Tasks"
-                onDrop={this.dropHandler}
-                onDragOver={this.dragOverHandler}>
+                <div className="Tasks">
                 {
                     this.props.tasks.map((task, i)=>
                         <Task 
                         desc={task.desc}
                         taskId={i}
-                        sectionId={this.props.sectionId}></Task>
+                        sectionId={this.props.sectionId}
+                        updateTaskHandler={this.props.updateTaskHandler}></Task>
                     )
                 }
                 </div>

@@ -37,6 +37,11 @@
 }
 
 .AddTaskButton:hover{
-    /* background-color: #000; */
     background-color: #8A2BE2;
+}
+
+.EditInput{
+    width: 100px;
+    height: 30px;
+    padding-left: 5px;
 }
