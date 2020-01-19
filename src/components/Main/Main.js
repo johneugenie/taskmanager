@@ -36,16 +36,14 @@ export default class Main extends Component {
     }
 
     // Function to move tasks between sections
-    moveTask(){
-        // let sections = this.state.sections;
-        // sections[id].tasks.push(
-        //     {
-        //         desc: "No description"
-        //     }
-        // )
-        // this.setState({
-        //     sections
-        // })
+    moveTask(sectionFrom, sectionTo, taskFrom, taskTo ){
+        let sections = this.state.sections;
+        let taskMoved = sections[sectionFrom].tasks[taskFrom];
+        sections[sectionTo].tasks.splice(taskTo, 0, taskMoved);
+        
+        this.setState({
+            sections
+        })
     }
     
     render() {
@@ -57,6 +55,7 @@ export default class Main extends Component {
                     tasks={section.tasks}
                     name={section.name}
                     addTaskHandler={this.addTasks.bind(this)}
+                    moveTaskHandler={this.moveTask.bind(this)}
                     sectionId={i}>
                     </Section>
                 )

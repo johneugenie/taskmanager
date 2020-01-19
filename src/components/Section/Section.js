@@ -8,42 +8,42 @@ export default class Section extends Component {
         this.props.addTaskHandler(this.props.sectionId)
     }
 
-    // handleOnDrop(e){
-    //     // debugger
-    //     console.log("Dropped")
-    // }
-
-    // handleDragOver(e){
-    //     debugger
-    //     console.log("Over")
-    // }
-
     dragOverHandler = (event) => {
         event.preventDefault();
     }
 
     dropHandler = (event) => {
-        debugger
         event.preventDefault();
         let target = event.target;
-        let sectionId = target.getAttribute("sectionId");
-        let taskId = target.getAttribute("taskId");
-        console.log(taskId + "$|$" + sectionId);
+        let toSectionId = target.getAttribute("sectionId");
+        let toTaskId = target.getAttribute("taskId");
+        let passedOnData = event.dataTransfer.getData("text");
+        let splitArray = passedOnData.split("$|$");
+        let fromTaskId = splitArray[1];
+        let fromSectionId = splitArray[0];
+
+        if(toSectionId && toTaskId){
+            this.props.moveTaskHandler(
+                parseInt(fromSectionId),
+                parseInt(toSectionId),
+                parseInt(fromTaskId),
+                parseInt(toTaskId)
+            )
+        }
         
-        // let newCard = JSON.parse(event.dataTransfer.getData("text/plain"));
         // this.props.droppedCard(newCard, this.props.card_column);
     }
 
     render() {
         return (
             <div 
-            className="Section"
-            onDrop={this.dropHandler}
-            onDragOver={this.dragOverHandler}>
+            className="Section">
                 <div className="Header">
                     {this.props.name}
                 </div>
-                <div className="Tasks">
+                <div className="Tasks"
+                onDrop={this.dropHandler}
+                onDragOver={this.dragOverHandler}>
                 {
                     this.props.tasks.map((task, i)=>
                         <Task 
@@ -52,11 +52,11 @@ export default class Section extends Component {
                         sectionId={this.props.sectionId}></Task>
                     )
                 }
+                </div>
                 <div 
                 className="AddTaskButton"
                 onClick={this.addTasksInSection.bind(this)}>
                     Add Task
-                </div>
                 </div>
             </div>
         )

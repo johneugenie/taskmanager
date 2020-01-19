@@ -8,14 +8,20 @@ export default class Task extends Component {
     }
 
     handleDragStart(e){
-        
+        const target = e.target;
         e.stopPropagation();
         this.dragged = e.currentTarget;
         var taskId = e.currentTarget.getAttribute("taskId");
         var sectionId = e.currentTarget.getAttribute("sectionId");
         e.dataTransfer.effectAllowed = 'move';
-        // e.dataTransfer.setData('text', taskId + "$|$" + sectionId);
-        e.dataTransfer.setData('text/html', e.currentTarget);
+        e.dataTransfer.setData('text', sectionId + "$|$" + taskId);
+
+        setTimeout(
+            ()=> {
+                target.style.display = "none";
+            }, 
+            0
+        )
     }
 
     handleDragEnd(e){
